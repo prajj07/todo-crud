@@ -35,16 +35,15 @@ app.get("/todos/:id", async(req, res) => {
     }
 })
 
-app.post("/todos", async(req, res) => {
-    try{
-        const {desc, completed} = req.body;
-        console.log(desc, completed);
-        const newTodo = await pool.query("INSERT INTO todo_table (todo_desc, todo_completed) VALUES($1, $2) RETURNING *", [desc, completed]);
-        res.json({newTodo, msg : "Todo was added successfully", success : true});
-    } catch (error) {
-        res.json(error);
-    }
-})
+app.post("/todos", async (req, res) => {
+      const { desc, completed } = req.body;
+      const newTodo = await pool.query(
+        "INSERT INTO todo_table (todo_desc, todo_completed) VALUES($1, $2) RETURNING *",
+        [desc, completed]
+      );
+      res.json({ newTodo, msg: "Todo Added", success: true });
+    
+  });
 
 
 app.put("/todos/:id", async(req, res) => { 
